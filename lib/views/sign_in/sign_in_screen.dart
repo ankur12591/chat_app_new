@@ -22,152 +22,130 @@ class SignInScreen extends StatelessWidget {
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
-          child: Container(
-            // padding: EdgeInsets.symmetric(
-            //   horizontal: 0.06 * width,
-            //   //getProportionateScreenWidth(20)
-            // ),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 0.06 * width,
-                      //getProportionateScreenWidth(20)
-                    ),
-                    child: SizedBox(height: height * 0.09),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 0.06 * width,
+                    //getProportionateScreenWidth(20)
                   ),
-                  // Text(
-                  //   "Welcome Back",
-                  //   style: TextStyle(
-                  //     color: Colors.black,
-                  //     fontSize: 0.08 * width,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
-                  Padding(
+                  child: SizedBox(height: height * 0.09),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 0.06 * width,
+                    //getProportionateScreenWidth(20)
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Welcome\nBack',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 34,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: height * 0.07),
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      color: Color(0XFFF9F9F9),
+                      // color: Color(0xFFfff7ed),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(50),
+                          topLeft: Radius.circular(50))),
+                  child: Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 0.06 * width,
+                      horizontal: 0.08 * width,
                       //getProportionateScreenWidth(20)
                     ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Welcome\nBack',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 34,
+                    child: Column(
+                      children: [
+                        Container(child: SignInForm()),
+
+                        Text(
+                          "Or",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 0.05 * width,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
+
+                        SizedBox(height: height * 0.02),
+                        //GoogleSignInButton(),
+                        FutureBuilder(
+                          future: Authentication.initializeFirebase(
+                              context: context),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Error initializing Firebase');
+                            } else if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return GoogleSignInButton();
+                            }
+                            return CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Color(0XFF6A62B7),
+                                //CustomColors.firebaseOrange,
+                              ),
+                            );
+                          },
+                        ),
+                        // SizedBox(height: height * 0.02),
+                        //   FacebookSignInButton(),
+                        SizedBox(height: height * 0.02),
+
+                        // SizedBox(height: height * 0.04),
+                        Container(
+                          //color: Colors.amber,
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Don’t have an account? ",
+                                style: TextStyle(fontSize: width * 0.044),
+                              ),
+                              GestureDetector(
+                                onTap: () {},
+                                // => Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => SignUpScreen())),
+                                child: Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                      fontSize: width * 0.044,
+                                      color: Color(0XFF6A62B7)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 20),
+                          padding: EdgeInsets.only(top: 20, bottom: 30),
+                          height: 4,
+                          width: width * 0.55,
+                          color: Color(0XFF6A62B7),
+                        )
+
+                        //SizedBox(height: 0.03 * height,),
+                        // NoAccountText(),
+                        // SizedBox(height: height * 0.08),
+                      ],
                     ),
                   ),
-                  // SvgPicture.asset(
-                  //   "assets/icons/Camera Icon.svg",
-                  //   height: 22.0,
-                  // ),
-                  // Text(
-                  //   "Sign in with your email and password  \nor continue with social media",
-                  //   textAlign: TextAlign.center,
-                  // ),
-                  SizedBox(height: height * 0.07),
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: Color(0XFFF9F9F9),
-                        // color: Color(0xFFfff7ed),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(50),
-                            topLeft: Radius.circular(50))),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 0.08 * width,
-                        //getProportionateScreenWidth(20)
-                      ),
-                      child: Column(
-                        children: [
-                          Container(child: SignInForm()),
-
-                          Text(
-                            "Or",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 0.05 * width,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-
-                          SizedBox(height: height * 0.02),
-                          //GoogleSignInButton(),
-                          FutureBuilder(
-                            future: Authentication.initializeFirebase(
-                                context: context),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Text('Error initializing Firebase');
-                              } else if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                return GoogleSignInButton();
-                              }
-                              return CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Color(0XFF6A62B7),
-                                  //CustomColors.firebaseOrange,
-                                ),
-                              );
-                            },
-                          ),
-                          // SizedBox(height: height * 0.02),
-                          //   FacebookSignInButton(),
-                          SizedBox(height: height * 0.02),
-
-                          // SizedBox(height: height * 0.04),
-                          Container(
-                            //color: Colors.amber,
-                            margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Don’t have an account? ",
-                                  style: TextStyle(fontSize: width * 0.044),
-                                ),
-                                GestureDetector(
-                                  onTap: () {},
-                                  // => Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => SignUpScreen())),
-                                  child: Text(
-                                    "Sign Up",
-                                    style: TextStyle(
-                                        fontSize: width * 0.044,
-                                        color: Color(0XFF6A62B7)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Container(
-                            margin: EdgeInsets.only(bottom: 20),
-                            padding: EdgeInsets.only(top: 20,bottom: 30),
-                            height: 4,
-                            width: width * 0.55,
-                            color: Color(0XFF6A62B7),
-                          )
-
-                          //SizedBox(height: 0.03 * height,),
-                          // NoAccountText(),
-                          // SizedBox(height: height * 0.08),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
