@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
   bool isSearching = false;
   late String myName, myProfilePic, myUserName, myEmail;
   late Stream<QuerySnapshot> usersStream;
-  late Stream<QuerySnapshot> chatRoomsStream;
+  Stream<QuerySnapshot>? chatRoomsStream;
 
   TextEditingController searchUsernameEditingController =
       TextEditingController();
@@ -63,9 +63,10 @@ class _HomeState extends State<Home> {
                   }
                   DocumentSnapshot ds = snapshot.data!.docs[index];
                   return
-                      // Text(ds["name"]);
+                     //  Text(myUserName);
                       ChatRoomListTile(
                     ds["lastMessage"],
+                       // ds["chatRoomId"],
                     ds.id,
                     myUserName,
                     //  ds["name"],
@@ -148,15 +149,12 @@ class _HomeState extends State<Home> {
   }
 
   getChatRooms() async {
-    setState(() {});
-
     chatRoomsStream = await DatabaseMethods().getChatRooms();
     setState(() {});
   }
 
   onScreenLoaded() async {
     await getMyInfoFromSharedPreference();
-
     getChatRooms();
     setState(() {});
   }
@@ -255,41 +253,114 @@ class _HomeState extends State<Home> {
   }
 }
 
-class ChatRoomListTile extends StatefulWidget {
-  late final String lastMessage, chatRoomId, myUsername;
+// class ChatRoomListTile extends StatefulWidget {
+//   late final String lastMessage, chatRoomId, myUsername;
+//
+//   ChatRoomListTile(this.lastMessage, this.chatRoomId, this.myUsername);
+//
+//   @override
+//   _ChatRoomListTileState createState() => _ChatRoomListTileState();
+// }
+//
+// class _ChatRoomListTileState extends State<ChatRoomListTile> {
+//   late String profilePicUrl = "", name = "", username = "";
+//
+//   getThisUserInfo() async {
+//     username =
+//         widget.chatRoomId.replaceAll(widget.myUsername, "").replaceAll("_", "");
+//     QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo(username);
+//     print(
+//         "something bla bla ${querySnapshot.docs[0].id} ${querySnapshot.docs[0]["name"]}  ${querySnapshot.docs[0]["imgUrl"]}");
+//     name = "${querySnapshot.docs[0]["name"]}";
+//     profilePicUrl = "${querySnapshot.docs[0]["imgUrl"]}";
+//
+//     //  username= widget.chatRoomId
+//     //      .toString()
+//     //      .replaceAll("_", "")
+//     //      .replaceAll(widget.myUsername, "");
+//     //  QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo(username);
+//     // // DatabaseMethods().getUserChats(Constants.myName).then((snapshots) {
+//     //    setState(() {
+//     //      //chatRooms = snapshots;
+//     //      print(
+//     //          "we got the data + ${querySnapshot.docs[0].id} this is name  ${querySnapshot.docs[0]["name"]}");
+//     //    });
+//     // }
+//     // );
+//
+//     setState(() {});
+//   }
+//
+//   @override
+//   void initState() {
+//     getThisUserInfo();
+//     super.initState();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         print("This is $name");
+//         Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//                 builder: (context) => ChatScreen(username, name)));
+//       },
+//       child: Container(
+//         margin: EdgeInsets.symmetric(vertical: 8),
+//         child: Row(
+//           children: [
+//             ClipRRect(
+//               borderRadius: BorderRadius.circular(30),
+//               // child: Image.network(
+//               //   profilePicUrl,
+//               //   height: 40,
+//               //   width: 40,
+//               // ),
+//             ),
+//             SizedBox(width: 12),
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   name,
+//                   style: TextStyle(fontSize: 16, color: Colors.black),
+//                 ),
+//                 SizedBox(height: 3),
+//                 Text(widget.lastMessage)
+//               ],
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-  ChatRoomListTile(this.lastMessage, this.chatRoomId, this.myUsername);
+class ChatRoomListTile extends StatefulWidget {
+  late final String lastMessage,
+      chatRoomId,
+      myUsername;
+  ChatRoomListTile(this.lastMessage,
+      this.chatRoomId,
+      this.myUsername);
 
   @override
   _ChatRoomListTileState createState() => _ChatRoomListTileState();
 }
 
 class _ChatRoomListTileState extends State<ChatRoomListTile> {
-  late String profilePicUrl = "", name = "", username = "";
+  String? profilePicUrl = "", name = "", username = "";
 
   getThisUserInfo() async {
     username =
         widget.chatRoomId.replaceAll(widget.myUsername, "").replaceAll("_", "");
-    QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo(username);
+    QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo(username!);
     print(
         "something bla bla ${querySnapshot.docs[0].id} ${querySnapshot.docs[0]["name"]}  ${querySnapshot.docs[0]["imgUrl"]}");
     name = "${querySnapshot.docs[0]["name"]}";
     profilePicUrl = "${querySnapshot.docs[0]["imgUrl"]}";
-
-    //  username= widget.chatRoomId
-    //      .toString()
-    //      .replaceAll("_", "")
-    //      .replaceAll(widget.myUsername, "");
-    //  QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo(username);
-    // // DatabaseMethods().getUserChats(Constants.myName).then((snapshots) {
-    //    setState(() {
-    //      //chatRooms = snapshots;
-    //      print(
-    //          "we got the data + ${querySnapshot.docs[0].id} this is name  ${querySnapshot.docs[0]["name"]}");
-    //    });
-    // }
-    // );
-
     setState(() {});
   }
 
@@ -303,11 +374,10 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("This is $name");
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ChatScreen(username, name)));
+                builder: (context) => ChatScreen(username!, name!)));
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
@@ -316,7 +386,7 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
             ClipRRect(
               borderRadius: BorderRadius.circular(30),
               // child: Image.network(
-              //   profilePicUrl,
+              //   profilePicUrl!,
               //   height: 40,
               //   width: 40,
               // ),
@@ -326,8 +396,9 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+            widget.myUsername,
+                  //name,
+                  style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 3),
                 Text(widget.lastMessage)

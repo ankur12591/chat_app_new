@@ -1,6 +1,7 @@
 import 'package:chat_app_new/services/auth.dart';
 import 'package:chat_app_new/theme.dart';
 import 'package:chat_app_new/views/home.dart';
+import 'package:chat_app_new/views/other_chat_app/home.dart';
 import 'package:chat_app_new/views/sign_in/sign_in_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +28,9 @@ class MyApp extends StatelessWidget {
         future: AuthMethods().getCurrentUser(),
         builder: (context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            return Home();
+            return
+            //  HomeScreen(currentUserId: '',);
+              Home();
           } else {
             return SignInScreen();
             //SignIn();

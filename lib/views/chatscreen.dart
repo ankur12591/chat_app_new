@@ -15,7 +15,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   late String chatRoomId, messageId = "";
-  late Stream<QuerySnapshot> messageStream;
+  Stream<QuerySnapshot>? messageStream;
   late String myName, myProfilePic, myUserName, myEmail;
   TextEditingController messageTextEdittingController = TextEditingController();
 

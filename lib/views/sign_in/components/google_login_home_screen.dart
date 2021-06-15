@@ -2,6 +2,7 @@ import 'package:chat_app_new/common/constants.dart';
 import 'package:chat_app_new/services/auth.dart';
 import 'package:chat_app_new/services/authentication.dart';
 import 'package:chat_app_new/views/home.dart';
+import 'package:chat_app_new/views/other_chat_app/home.dart';
 import 'package:chat_app_new/views/sign_in/sign_in_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -172,7 +173,10 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                   //elevation: 5,
                   onPressed: () async {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Home()));
+                        MaterialPageRoute(builder: (context) =>
+                      //  HomeScreen(currentUserId: '',)
+                         Home()
+                        ));
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40)),
