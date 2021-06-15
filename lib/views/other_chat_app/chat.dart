@@ -15,7 +15,8 @@ class Chat extends StatelessWidget {
   final String peerId;
   final String peerAvatar;
 
-  Chat({Key? key, required this.peerId, required this.peerAvatar}) : super(key: key);
+  Chat({Key? key, required this.peerId, required this.peerAvatar})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +40,12 @@ class ChatScreen extends StatefulWidget {
   final String peerId;
   final String peerAvatar;
 
-  ChatScreen({Key? key, required this.peerId, required this.peerAvatar}) : super(key: key);
+  ChatScreen({Key? key, required this.peerId, required this.peerAvatar})
+      : super(key: key);
 
   @override
-  State createState() => ChatScreenState(peerId: peerId, peerAvatar: peerAvatar);
+  State createState() =>
+      ChatScreenState(peerId: peerId, peerAvatar: peerAvatar);
 }
 
 class ChatScreenState extends State<ChatScreen> {
@@ -68,7 +71,8 @@ class ChatScreenState extends State<ChatScreen> {
   final FocusNode focusNode = FocusNode();
 
   _scrollListener() {
-    if (listScrollController.offset >= listScrollController.position.maxScrollExtent &&
+    if (listScrollController.offset >=
+            listScrollController.position.maxScrollExtent &&
         !listScrollController.position.outOfRange) {
       setState(() {
         _limit += _limitIncrement;
@@ -102,7 +106,10 @@ class ChatScreenState extends State<ChatScreen> {
       groupChatId = '$peerId-$id';
     }
 
-    FirebaseFirestore.instance.collection('users').doc(id).update({'chattingWith': peerId});
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .update({'chattingWith': peerId});
 
     setState(() {});
   }
@@ -174,9 +181,13 @@ class ChatScreenState extends State<ChatScreen> {
           },
         );
       });
-      listScrollController.animateTo(0.0, duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+      listScrollController.animateTo(0.0,
+          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
     } else {
-      Fluttertoast.showToast(msg: 'Nothing to send', backgroundColor: Colors.black, textColor: Colors.red);
+      Fluttertoast.showToast(
+          msg: 'Nothing to send',
+          backgroundColor: Colors.black,
+          textColor: Colors.red);
     }
   }
 
@@ -195,8 +206,12 @@ class ChatScreenState extends State<ChatScreen> {
                     ),
                     padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                     width: 200.0,
-                    decoration: BoxDecoration(color: greyColor2, borderRadius: BorderRadius.circular(8.0)),
-                    margin: EdgeInsets.only(bottom: isLastMessageRight(index) ? 20.0 : 10.0, right: 10.0),
+                    decoration: BoxDecoration(
+                        color: greyColor2,
+                        borderRadius: BorderRadius.circular(8.0)),
+                    margin: EdgeInsets.only(
+                        bottom: isLastMessageRight(index) ? 20.0 : 10.0,
+                        right: 10.0),
                   )
                 : document.get('type') == 1
                     // Image
@@ -205,7 +220,9 @@ class ChatScreenState extends State<ChatScreen> {
                           child: Material(
                             child: Image.network(
                               document.get("content"),
-                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
                                 if (loadingProgress == null) return child;
                                 return Container(
                                   decoration: BoxDecoration(
@@ -219,10 +236,17 @@ class ChatScreenState extends State<ChatScreen> {
                                   child: Center(
                                     child: CircularProgressIndicator(
                                       color: primaryColor,
-                                      value: loadingProgress.expectedTotalBytes != null &&
-                                              loadingProgress.expectedTotalBytes != null
-                                          ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                          : null,
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                      null &&
+                                                  loadingProgress
+                                                          .expectedTotalBytes !=
+                                                      null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
                                     ),
                                   ),
                                 );
@@ -245,7 +269,8 @@ class ChatScreenState extends State<ChatScreen> {
                               height: 200.0,
                               fit: BoxFit.cover,
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0)),
                             clipBehavior: Clip.hardEdge,
                           ),
                           onPressed: () {
@@ -258,9 +283,13 @@ class ChatScreenState extends State<ChatScreen> {
                             //   ),
                             // );
                           },
-                          style: ButtonStyle(padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0))),
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(0))),
                         ),
-                        margin: EdgeInsets.only(bottom: isLastMessageRight(index) ? 20.0 : 10.0, right: 10.0),
+                        margin: EdgeInsets.only(
+                            bottom: isLastMessageRight(index) ? 20.0 : 10.0,
+                            right: 10.0),
                       )
                     // Sticker
                     : Container(
@@ -270,7 +299,9 @@ class ChatScreenState extends State<ChatScreen> {
                           height: 100.0,
                           fit: BoxFit.cover,
                         ),
-                        margin: EdgeInsets.only(bottom: isLastMessageRight(index) ? 20.0 : 10.0, right: 10.0),
+                        margin: EdgeInsets.only(
+                            bottom: isLastMessageRight(index) ? 20.0 : 10.0,
+                            right: 10.0),
                       ),
           ],
           mainAxisAlignment: MainAxisAlignment.end,
@@ -286,14 +317,18 @@ class ChatScreenState extends State<ChatScreen> {
                       ? Material(
                           child: Image.network(
                             peerAvatar,
-                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) return child;
                               return Center(
                                 child: CircularProgressIndicator(
                                   color: primaryColor,
-                                  value: loadingProgress.expectedTotalBytes != null &&
-                                          loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                  value: loadingProgress.expectedTotalBytes !=
+                                              null &&
+                                          loadingProgress.expectedTotalBytes !=
+                                              null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
                                       : null,
                                 ),
                               );
@@ -323,7 +358,9 @@ class ChatScreenState extends State<ChatScreen> {
                           ),
                           padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                           width: 200.0,
-                          decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(8.0)),
+                          decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(8.0)),
                           margin: EdgeInsets.only(left: 10.0),
                         )
                       : document.get('type') == 1
@@ -332,8 +369,9 @@ class ChatScreenState extends State<ChatScreen> {
                                 child: Material(
                                   child: Image.network(
                                     document.get('content'),
-                                    loadingBuilder:
-                                        (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
                                       if (loadingProgress == null) return child;
                                       return Container(
                                         decoration: BoxDecoration(
@@ -347,16 +385,24 @@ class ChatScreenState extends State<ChatScreen> {
                                         child: Center(
                                           child: CircularProgressIndicator(
                                             color: primaryColor,
-                                            value: loadingProgress.expectedTotalBytes != null &&
-                                                    loadingProgress.expectedTotalBytes != null
-                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                    loadingProgress.expectedTotalBytes!
+                                            value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null &&
+                                                    loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
                                                 : null,
                                           ),
                                         ),
                                       );
                                     },
-                                    errorBuilder: (context, object, stackTrace) => Material(
+                                    errorBuilder:
+                                        (context, object, stackTrace) =>
+                                            Material(
                                       child: Image.asset(
                                         'images/img_not_available.jpeg',
                                         width: 200.0,
@@ -372,14 +418,18 @@ class ChatScreenState extends State<ChatScreen> {
                                     height: 200.0,
                                     fit: BoxFit.cover,
                                   ),
-                                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8.0)),
                                   clipBehavior: Clip.hardEdge,
                                 ),
                                 onPressed: () {
                                   // Navigator.push(context,
                                   //     MaterialPageRoute(builder: (context) => FullPhoto(url: document.get('content'))));
                                 },
-                                style: ButtonStyle(padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0))),
+                                style: ButtonStyle(
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(0))),
                               ),
                               margin: EdgeInsets.only(left: 10.0),
                             )
@@ -390,7 +440,10 @@ class ChatScreenState extends State<ChatScreen> {
                                 height: 100.0,
                                 fit: BoxFit.cover,
                               ),
-                              margin: EdgeInsets.only(bottom: isLastMessageRight(index) ? 20.0 : 10.0, right: 10.0),
+                              margin: EdgeInsets.only(
+                                  bottom:
+                                      isLastMessageRight(index) ? 20.0 : 10.0,
+                                  right: 10.0),
                             ),
                 ],
               ),
@@ -399,11 +452,16 @@ class ChatScreenState extends State<ChatScreen> {
               isLastMessageLeft(index)
                   ? Container(
                       child: Text(
-                        DateFormat('dd MMM kk:mm')
-                            .format(DateTime.fromMillisecondsSinceEpoch(int.parse(document.get('timestamp')))),
-                        style: TextStyle(color: greyColor, fontSize: 12.0, fontStyle: FontStyle.italic),
+                        DateFormat('dd MMM kk:mm').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                int.parse(document.get('timestamp')))),
+                        style: TextStyle(
+                            color: greyColor,
+                            fontSize: 12.0,
+                            fontStyle: FontStyle.italic),
                       ),
-                      margin: EdgeInsets.only(left: 50.0, top: 5.0, bottom: 5.0),
+                      margin:
+                          EdgeInsets.only(left: 50.0, top: 5.0, bottom: 5.0),
                     )
                   : Container()
             ],
@@ -418,7 +476,8 @@ class ChatScreenState extends State<ChatScreen> {
   }
 
   bool isLastMessageLeft(int index) {
-    if ((index > 0 && listMessage[index - 1].get('idFrom') == id) || index == 0) {
+    if ((index > 0 && listMessage[index - 1].get('idFrom') == id) ||
+        index == 0) {
       return true;
     } else {
       return false;
@@ -426,7 +485,8 @@ class ChatScreenState extends State<ChatScreen> {
   }
 
   bool isLastMessageRight(int index) {
-    if ((index > 0 && listMessage[index - 1].get('idFrom') != id) || index == 0) {
+    if ((index > 0 && listMessage[index - 1].get('idFrom') != id) ||
+        index == 0) {
       return true;
     } else {
       return false;
@@ -439,7 +499,10 @@ class ChatScreenState extends State<ChatScreen> {
         isShowSticker = false;
       });
     } else {
-      FirebaseFirestore.instance.collection('users').doc(id).update({'chattingWith': null});
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(id)
+          .update({'chattingWith': null});
       Navigator.pop(context);
     }
 
@@ -576,7 +639,9 @@ class ChatScreenState extends State<ChatScreen> {
           ],
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         ),
-        decoration: BoxDecoration(border: Border(top: BorderSide(color: greyColor2, width: 0.5)), color: Colors.white),
+        decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: greyColor2, width: 0.5)),
+            color: Colors.white),
         padding: EdgeInsets.all(5.0),
         height: 180.0,
       ),
@@ -651,7 +716,9 @@ class ChatScreenState extends State<ChatScreen> {
       ),
       width: double.infinity,
       height: 50.0,
-      decoration: BoxDecoration(border: Border(top: BorderSide(color: greyColor2, width: 0.5)), color: Colors.white),
+      decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: greyColor2, width: 0.5)),
+          color: Colors.white),
     );
   }
 
@@ -666,12 +733,14 @@ class ChatScreenState extends State<ChatScreen> {
                   .orderBy('timestamp', descending: true)
                   .limit(_limit)
                   .snapshots(),
-              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
                   listMessage.addAll(snapshot.data!.docs);
                   return ListView.builder(
                     padding: EdgeInsets.all(10.0),
-                    itemBuilder: (context, index) => buildItem(index, snapshot.data?.docs[index]),
+                    itemBuilder: (context, index) =>
+                        buildItem(index, snapshot.data?.docs[index]),
                     itemCount: snapshot.data?.docs.length,
                     reverse: true,
                     controller: listScrollController,

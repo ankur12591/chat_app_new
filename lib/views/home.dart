@@ -63,10 +63,10 @@ class _HomeState extends State<Home> {
                   }
                   DocumentSnapshot ds = snapshot.data!.docs[index];
                   return
-                     //  Text(myUserName);
+                      //  Text(myUserName);
                       ChatRoomListTile(
                     ds["lastMessage"],
-                       // ds["chatRoomId"],
+                    // ds["chatRoomId"],
                     ds.id,
                     myUserName,
                     //  ds["name"],
@@ -339,12 +339,9 @@ class _HomeState extends State<Home> {
 // }
 
 class ChatRoomListTile extends StatefulWidget {
-  late final String lastMessage,
-      chatRoomId,
-      myUsername;
-  ChatRoomListTile(this.lastMessage,
-      this.chatRoomId,
-      this.myUsername);
+  late final String lastMessage, chatRoomId, myUsername;
+
+  ChatRoomListTile(this.lastMessage, this.chatRoomId, this.myUsername);
 
   @override
   _ChatRoomListTileState createState() => _ChatRoomListTileState();
@@ -356,7 +353,8 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
   getThisUserInfo() async {
     username =
         widget.chatRoomId.replaceAll(widget.myUsername, "").replaceAll("_", "");
-    QuerySnapshot querySnapshot = await DatabaseMethods().getUserInfo(username!);
+    QuerySnapshot querySnapshot =
+        await DatabaseMethods().getUserInfo(username!);
     print(
         "something bla bla ${querySnapshot.docs[0].id} ${querySnapshot.docs[0]["name"]}  ${querySnapshot.docs[0]["imgUrl"]}");
     name = "${querySnapshot.docs[0]["name"]}";
@@ -396,7 +394,7 @@ class _ChatRoomListTileState extends State<ChatRoomListTile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-            widget.myUsername,
+                  widget.myUsername,
                   //name,
                   style: TextStyle(fontSize: 16),
                 ),
