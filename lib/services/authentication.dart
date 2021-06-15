@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:chat_app_new/views/sign_in/google_login_home_screen.dart';
+import 'package:chat_app_new/views/sign_in/components/google_login_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

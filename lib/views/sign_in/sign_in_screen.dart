@@ -1,8 +1,9 @@
 import 'package:chat_app_new/common/constants.dart';
 import 'package:chat_app_new/services/authentication.dart';
-import 'package:chat_app_new/views/sign_in/sign_in_form.dart';
+import 'package:chat_app_new/views/sign_in/components/sign_in_form.dart';
 import 'package:chat_app_new/widgets/facebook_sign_in_button.dart';
 import 'package:chat_app_new/widgets/google_sign_in_button.dart';
+import 'package:chat_app_new/widgets/google_sign_in_button_chat_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -87,7 +88,8 @@ class SignInScreen extends StatelessWidget {
                               return Text('Error initializing Firebase');
                             } else if (snapshot.connectionState ==
                                 ConnectionState.done) {
-                              return GoogleSignInButton();
+                              //return GoogleSignInButton();
+                              return GoogleSignInButtonChatApp();
                             }
                             return CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(

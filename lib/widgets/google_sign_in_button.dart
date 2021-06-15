@@ -1,5 +1,6 @@
 import 'package:chat_app_new/services/authentication.dart';
-import 'package:chat_app_new/views/sign_in/google_login_home_screen.dart';
+import 'package:chat_app_new/views/sign_in/components/google_login_home_screen.dart';
+//import 'package:chat_app_new/views/sign_in/components/google_login_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -43,8 +44,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                 if (user != null) {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => GoogleSignInHomeScreen(
-                        user: user,
+                      builder: (context) => GoogleSignInHomeScreen(user: user,
+
                       ),
                     ),
                   );

@@ -1,6 +1,9 @@
 import 'package:chat_app_new/common/constants.dart';
+import 'package:chat_app_new/services/auth.dart';
 import 'package:chat_app_new/services/authentication.dart';
+import 'package:chat_app_new/views/home.dart';
 import 'package:chat_app_new/views/sign_in/sign_in_screen.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +11,12 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'facebook_login_home_screen.dart';
-
 class GoogleSignInHomeScreen extends StatefulWidget {
   const GoogleSignInHomeScreen({Key? key, required User user})
       : _user = user,
         super(key: key);
 
-  final User _user;
+  final User? _user;
 
   @override
   _GoogleSignInHomeScreenState createState() => _GoogleSignInHomeScreenState();
@@ -50,7 +51,7 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
 
   @override
   void initState() {
-    _user = widget._user;
+    _user = widget._user!;
 
     super.initState();
   }
@@ -165,22 +166,17 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
               //   style: TextStyle(fontSize: 30),
               // ),
 
-
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FlatButton(
                   //elevation: 5,
                   onPressed: () async {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => FurnitureHome()));
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40)),
-                //color: Color(0XFF6A62B7),
+                  //color: Color(0XFF6A62B7),
                   color: CustomColors.firebaseNavy.withOpacity(0.9),
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
@@ -207,12 +203,13 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                       height: 35,
                       width: 35,
                       child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Color(0XFF6A62B7)),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0XFF6A62B7)),
                       ),
                     )
                   : Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FlatButton(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlatButton(
                         //elevation: 5,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40)),
@@ -224,7 +221,15 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                           setState(() {
                             _isSigningOut = true;
                           });
-                          await Authentication.signOut(context: context);
+                          // await AuthMethods().signOut();
+                          await AuthMethods().signOut().then((s) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignInScreen()));
+                          });
+
+                          // await Authentication.signOut(context: context);
                           print(
                               'Logged out successfully. \nYou can now navigate to Home Page.');
                           setState(() {
@@ -233,7 +238,7 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                           Navigator.of(context)
                               .pushReplacement(_routeToSignInScreen());
                         },
-                  //     color: Color(0XFF6A62B7),
+                        //     color: Color(0XFF6A62B7),
                         color: CustomColors.firebaseNavy.withOpacity(0.9),
                         child: Container(
                           padding: const EdgeInsets.all(8.0),
@@ -244,7 +249,7 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                           ),
                         ),
                       ),
-                  ),
+                    ),
             ],
           ),
         ),
