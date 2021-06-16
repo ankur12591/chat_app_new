@@ -172,7 +172,8 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                 child: FlatButton(
                   //elevation: 5,
                   onPressed: () async {
-                    Navigator.push(context,
+
+                    Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) =>
                       //  HomeScreen(currentUserId: '',)
                          Home()

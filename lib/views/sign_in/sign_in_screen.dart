@@ -10,6 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SignInScreen extends StatelessWidget {
   late double height, width;
 
+
+
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -40,13 +42,26 @@ class SignInScreen extends StatelessWidget {
                   ),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Welcome\nBack',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 34,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hello!!',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 34,
+                          ),
+                        ),
+                        SizedBox(height: height * 0.01),
+                        Text('Welcome Back',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -69,15 +84,28 @@ class SignInScreen extends StatelessWidget {
                       children: [
                         Container(child: SignInForm()),
 
-                        Text(
-                          "Or",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 0.05 * width,
-                            fontWeight: FontWeight.bold,
+                        // Text(
+                        //   "Or",
+                        //   style: TextStyle(
+                        //     color: Colors.black,
+                        //     fontSize: 0.05 * width,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+
+                        SizedBox(height: height * 0.02),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              horizontalLine(),
+                              Text("Social Login",
+                                  style: TextStyle(color: Colors.black87.withOpacity(0.7),
+                                      fontSize: 18.0, )),
+                              horizontalLine()
+                            ],
                           ),
                         ),
-
                         SizedBox(height: height * 0.02),
                         //GoogleSignInButton(),
                         FutureBuilder(
@@ -154,4 +182,13 @@ class SignInScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget horizontalLine() => Padding(
+    padding: EdgeInsets.symmetric(horizontal: 16.0),
+    child: Container(
+      width: width * 0.18,
+      height: 1.0,
+      color: Colors.black26.withOpacity(.2),
+    ),
+  );
 }
