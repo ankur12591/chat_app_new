@@ -105,19 +105,29 @@ class Authentication {
   }
 
   static Future<void> signOut({required BuildContext context}) async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
 
-    try {
-      if (!kIsWeb) {
-        await googleSignIn.signOut();
-      }
-      await FirebaseAuth.instance.signOut();
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        Authentication.customSnackBar(
-          content: 'Error signing out. Try again.',
-        ),
-      );
-    }
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    await googleSignIn.disconnect();
+       await FirebaseAuth.instance.signOut();
+    await googleSignIn.signOut();
+
+
+
+
+    // try {
+    //   if (!kIsWeb) {
+    //     await googleSignIn.signOut();
+    //    // await googleSignIn.disconnect();
+    //
+    //   }
+    //   await googleSignIn.disconnect();
+    //   await FirebaseAuth.instance.signOut();
+    // } catch (e) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     Authentication.customSnackBar(
+    //       content: 'Error signing out. Try again.',
+    //     ),
+    //   );
+    // }
   }
 }
