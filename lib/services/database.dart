@@ -32,8 +32,11 @@ class DatabaseMethods {
     return FirebaseFirestore.instance
         .collection("chatrooms")
         .doc(chatRoomId)
+      //  .set(lastMessageInfoMap, SetOptions(merge : true));
         .update(lastMessageInfoMap);
+
   }
+
 
   createChatRoom(
       String chatRoomId, Map<String, dynamic> chatRoomInfoMap) async {

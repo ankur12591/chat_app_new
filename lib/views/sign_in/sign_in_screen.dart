@@ -82,7 +82,9 @@ class SignInScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Container(child: SignInForm()),
+                        // Container(
+                        //     child: SignInForm()
+                        // ),
 
                         // Text(
                         //   "Or",
@@ -93,18 +95,19 @@ class SignInScreen extends StatelessWidget {
                         //   ),
                         // ),
 
-                        SizedBox(height: height * 0.02),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              horizontalLine(),
-                              Text("Social Login",
-                                  style: TextStyle(color: Colors.black87.withOpacity(0.7),
-                                      fontSize: 18.0, )),
-                              horizontalLine()
-                            ],
-                          ),
+                        SizedBox(height: height * 0.15),
+
+                       // Spacer(flex: 3,),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            horizontalLine(),
+                            Text("Social Login",
+                                style: TextStyle(color: Colors.black87.withOpacity(0.7),
+                                    fontSize: 18.0, )),
+                            horizontalLine()
+                          ],
                         ),
                         SizedBox(height: height * 0.02),
                         //GoogleSignInButton(),
@@ -129,46 +132,46 @@ class SignInScreen extends StatelessWidget {
                         ),
                         // SizedBox(height: height * 0.02),
                         //   FacebookSignInButton(),
-                        SizedBox(height: height * 0.02),
+                        //SizedBox(height: height * 0.02),
 
                         // SizedBox(height: height * 0.04),
-                        Container(
-                          //color: Colors.amber,
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Don’t have an account? ",
-                                style: TextStyle(fontSize: width * 0.044),
-                              ),
-                              GestureDetector(
-                                onTap: () {},
-                                // => Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => SignUpScreen())),
-                                child: Text(
-                                  "Sign Up",
-                                  style: TextStyle(
-                                      fontSize: width * 0.044,
-                                      color: Color(0XFF6A62B7)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Spacer(),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 20),
-                          padding: EdgeInsets.only(top: 20, bottom: 30),
-                          height: 4,
-                          width: width * 0.55,
-                          color: Color(0XFF6A62B7),
-                        )
+                        // Container(
+                        //   //color: Colors.amber,
+                        //   margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       Text(
+                        //         "Don’t have an account? ",
+                        //         style: TextStyle(fontSize: width * 0.044),
+                        //       ),
+                        //       GestureDetector(
+                        //         onTap: () {},
+                        //         // => Navigator.push(
+                        //         //     context,
+                        //         //     MaterialPageRoute(
+                        //         //         builder: (context) => SignUpScreen())),
+                        //         child: Text(
+                        //           "Sign Up",
+                        //           style: TextStyle(
+                        //               fontSize: width * 0.044,
+                        //               color: Color(0XFF6A62B7)),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        //  Spacer(),
+                        // Container(
+                        //   margin: EdgeInsets.only(bottom: 20),
+                        //   padding: EdgeInsets.only(top: 20, bottom: 30),
+                        //   height: 4,
+                        //   width: width * 0.55,
+                        //   color: Color(0XFF6A62B7),
+                        // )
 
-                        //SizedBox(height: 0.03 * height,),
+                        SizedBox(height: 0.03 * height,),
                         // NoAccountText(),
                         // SizedBox(height: height * 0.08),
                       ],

@@ -1,10 +1,13 @@
 import 'package:chat_app_new/common/constants.dart';
 import 'package:chat_app_new/services/auth.dart';
 import 'package:chat_app_new/services/authentication.dart';
+import 'package:chat_app_new/views/chat_app_old/services/auth_google.dart';
 import 'package:chat_app_new/views/chat_app_old/views/chatrooms.dart';
+import 'package:chat_app_new/views/chat_app_old/views/chatrooms1.dart';
+import 'package:chat_app_new/views/chat_app_old/views/signin_with_google.dart';
 import 'package:chat_app_new/views/home.dart';
 import 'package:chat_app_new/views/other_chat_app/home.dart';
-import 'package:chat_app_new/views/sign_in/sign_in_screen.dart';
+//import 'package:chat_app_new/views/sign_in/sign_in_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,18 +16,18 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-class GoogleSignInHomeScreen extends StatefulWidget {
-  const GoogleSignInHomeScreen({Key? key, required User user})
+class GoogleHomeScreen extends StatefulWidget {
+  const GoogleHomeScreen({Key? key, required User user})
       : _user = user,
         super(key: key);
 
   final User? _user;
 
   @override
-  _GoogleSignInHomeScreenState createState() => _GoogleSignInHomeScreenState();
+  _GoogleHomeScreenState createState() => _GoogleHomeScreenState();
 }
 
-class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
+class _GoogleHomeScreenState extends State<GoogleHomeScreen> {
   bool _isSigningIn = false;
   bool _isSigningOut = false;
 
@@ -34,7 +37,7 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
 
   Route _routeToSignInScreen() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => SignInScreen(),
+      pageBuilder: (context, animation, secondaryAnimation) => SignInGoogle(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(-1.0, 0.0);
         var end = Offset.zero;
@@ -173,19 +176,20 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                 child: FlatButton(
                   //elevation: 5,
                   onPressed: () async {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                //  HomeScreen(currentUserId: '',)
+                                ChatRoom1()
 
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) =>
-                      //  HomeScreen(currentUserId: '',)
-                        // ChatRoom()
-
-                         Home()
-                        ));
+                            // Home()
+                            ));
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40)),
                   //color: Color(0XFF6A62B7),
-                  color: CustomColors.firebaseNavy.withOpacity(0.9),
+                  color: Color(0XFF2E9BBA).withOpacity(0.9),
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -230,11 +234,12 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                             _isSigningOut = true;
                           });
                           // await AuthMethods().signOut();
-                          await AuthMethods().signOut().then((s) {
+                          await AuthMethodsGoogle().signOut().then((s) {
                             Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignInScreen()));
+                                MaterialPageRoute(builder: (context) => SignInGoogle()
+                                  //    SignInScreen()
+                                ));
                           });
 
                           // await Authentication.signOut(context: context);
@@ -247,7 +252,7 @@ class _GoogleSignInHomeScreenState extends State<GoogleSignInHomeScreen> {
                               .pushReplacement(_routeToSignInScreen());
                         },
                         //     color: Color(0XFF6A62B7),
-                        color: CustomColors.firebaseNavy.withOpacity(0.9),
+                        color: Color(0XFF2E9BBA).withOpacity(0.9),
                         child: Container(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(

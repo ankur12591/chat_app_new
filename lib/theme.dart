@@ -18,18 +18,32 @@ ThemeData theme() {
 class MyColors {
 
   static const MaterialColor primaryColor = MaterialColor(
-    0XFF6A62B7,
+    // 0XFF6A62B7,
+    // <int, Color>{
+    //   50: Color(0XFF6A62B7),
+    //   100: Color(0XFF6A62B7),
+    //   200: Color(0XFF6A62B7),
+    //   300: Color(0XFF6A62B7),
+    //   400: Color(0XFF6A62B7),
+    //   500: Color(0XFF6A62B7),
+    //   600: Color(0XFF6A62B7),
+    //   700: Color(0XFF6A62B7),
+    //   800: Color(0XFF6A62B7),
+    //   900: Color(0XFF6A62B7),
+    // },
+
+    0XFF2E9BBA,
     <int, Color>{
-      50: Color(0XFF6A62B7),
-      100: Color(0XFF6A62B7),
-      200: Color(0XFF6A62B7),
-      300: Color(0XFF6A62B7),
-      400: Color(0XFF6A62B7),
-      500: Color(0XFF6A62B7),
-      600: Color(0XFF6A62B7),
-      700: Color(0XFF6A62B7),
-      800: Color(0XFF6A62B7),
-      900: Color(0XFF6A62B7),
+      50: Color(0XFF2E9BBA),
+      100: Color(0XFF2E9BBA),
+      200: Color(0XFF2E9BBA),
+      300: Color(0XFF2E9BBA),
+      400: Color(0XFF2E9BBA),
+      500: Color(0XFF2E9BBA),
+      600: Color(0XFF2E9BBA),
+      700: Color(0XFF2E9BBA),
+      800: Color(0XFF2E9BBA),
+      900: Color(0XFF2E9BBA),
     },
   );
 }

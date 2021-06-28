@@ -77,10 +77,10 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  Widget chatMessageTile(String message, bool sendByMe) {
+  Widget chatMessageTile(String message,bool sendByMe) {
     return Row(
       mainAxisAlignment:
-          sendByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+      sendByMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Flexible(
           child: Container(
@@ -89,17 +89,21 @@ class _ChatScreenState extends State<ChatScreen> {
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(24),
                   bottomRight:
-                      sendByMe ? Radius.circular(0) : Radius.circular(24),
+                  sendByMe ? Radius.circular(0) : Radius.circular(24),
                   topRight: Radius.circular(24),
                   bottomLeft:
-                      sendByMe ? Radius.circular(24) : Radius.circular(0),
+                  sendByMe ? Radius.circular(24) : Radius.circular(0),
                 ),
                 color: sendByMe ?
-              //  Color(0XFFF9F9F9)
+                //  Color(0XFFF9F9F9)
                 Color(0XFF6A62B7).withOpacity(0.6)
-                    : Color(0xfff1f0f0),
+                    :
+                Color(0xfff1f0f0),
               ),
               padding: EdgeInsets.all(16),
+
+
+
               child: Text(
                 message,
                 style: TextStyle(color: Colors.black),
@@ -115,16 +119,16 @@ class _ChatScreenState extends State<ChatScreen> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? ListView.builder(
-                padding: EdgeInsets.only(bottom: 70, top: 16),
-                itemCount: snapshot.data!.docs.length,
-                reverse: true,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot ds = snapshot.data!.docs[index];
-                  return
-                      // Text(ds["message"],);
-                      chatMessageTile(
-                          ds["message"], myUserName == ds["sendBy"]);
-                })
+            padding: EdgeInsets.only(bottom: 70, top: 16),
+            itemCount: snapshot.data!.docs.length,
+            reverse: true,
+            itemBuilder: (context, index) {
+              DocumentSnapshot ds = snapshot.data!.docs[index];
+              return
+                // Text(ds["message"],);
+                chatMessageTile(
+                    ds["message"], myUserName == ds["sendBy"]);
+            })
             : Center(child: CircularProgressIndicator());
       },
     );
@@ -195,20 +199,20 @@ class _ChatScreenState extends State<ChatScreen> {
           (
           child: Column(
             children: [
-             // Container(height: 30,),
+              // Container(height: 30,),
               SizedBox(height: height * 0.07),
               Container(
-                padding: EdgeInsets.only(bottom: 140,top: 50),
+                  padding: EdgeInsets.only(bottom: 140,top: 50),
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      //color: Color(0XFFF9F9F9),
-                       color: Colors.white,
+                    //color: Color(0XFFF9F9F9),
+                      color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(50),
                           topLeft: Radius.circular(50))),
                   child: chatMessages()),
-             // SizedBox(height: 15,)
+              // SizedBox(height: 15,)
 
             ],
           ),
@@ -223,7 +227,7 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               Expanded(
                 child: Container(
-              //    margin: EdgeInsets.symmetric(horizontal: 5,vertical: 1.2),
+                  //    margin: EdgeInsets.symmetric(horizontal: 5,vertical: 1.2),
                   padding: EdgeInsets.only(left: 1.5),
                   decoration: BoxDecoration(
                     //color: Colors.black,
@@ -245,21 +249,21 @@ class _ChatScreenState extends State<ChatScreen> {
                       SizedBox(width: width * 0.02),
                       Expanded(
                           child: TextField(
-                        controller: messageTextEdittingController,
-                        onChanged: (value) {
-                          addMessage(false);
-                        },
-                        style: TextStyle(color: Colors.black87),
-                        decoration: InputDecoration(
-                          enabled: true,
-                            // color: Color(0xFFF4F5FA),
-                            border: InputBorder.none,
-                            hintText: "Type message",
-                            hintStyle: TextStyle(
-                              color: Color(0XFF6A62B7).withOpacity(0.9),
-                              //color: Colors.white.withOpacity(0.6)
-                            )),
-                      )),
+                            controller: messageTextEdittingController,
+                            onChanged: (value) {
+                              addMessage(false);
+                            },
+                            style: TextStyle(color: Colors.black87),
+                            decoration: InputDecoration(
+                                enabled: true,
+                                // color: Color(0xFFF4F5FA),
+                                border: InputBorder.none,
+                                hintText: "Type message",
+                                hintStyle: TextStyle(
+                                  color: Color(0XFF6A62B7).withOpacity(0.9),
+                                  //color: Colors.white.withOpacity(0.6)
+                                )),
+                          )),
                       SizedBox(width: width * 0.02),
                       Icon(
                         Icons.attach_file,
